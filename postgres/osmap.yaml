@@ -22,13 +22,16 @@ Debian:
   pkg_libpq_dev: libpq-dev
 
 FreeBSD:
+  conf_dir: /usr/local/pgsql/data
   use_upstream_repo: false
   user: pgsql
   group: pgsql
+  pkg_client:
+  pkg_libpq_dev:
   prepare_cluster:
     user: root
     command: service postgresql oneinitdb
-    test: test -f /var/lib/pgsql/data/PG_VERSION
+    test: test -f /usr/local/pgsql/data/PG_VERSION
     env: {}
 
 OpenBSD:

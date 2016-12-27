@@ -70,6 +70,14 @@ postgresql-pg_hba:
     - require:
       - file: postgresql-config-dir
 
+{% if grains.os_family == 'FreeBSD' %}
+# https://github.com/saltstack/salt/issues/16459
+postgresql-log-fix:
+  sysrc.managed:
+    - name: postgresql_flags
+    - value: '-l /var/log/postgresql.log'
+{% endif %}
+
 postgresql-running:
   service.running:
     - name: {{ postgres.service }}
